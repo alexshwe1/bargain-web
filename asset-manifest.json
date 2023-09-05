@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/bargain-web/static/css/main.31d6cfe0.css",
-    "main.js": "/bargain-web/static/js/main.0fc1d490.js",
+    "main.js": "/bargain-web/static/js/main.24c4b680.js",
     "index.html": "/bargain-web/index.html",
-    "main.0fc1d490.js.map": "/bargain-web/static/js/main.0fc1d490.js.map"
+    "main.24c4b680.js.map": "/bargain-web/static/js/main.24c4b680.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.0fc1d490.js"
+    "static/js/main.24c4b680.js"
   ]
 }
