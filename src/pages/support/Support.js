@@ -14,7 +14,7 @@ const Support = () => {
       <h1>Contact Support</h1>
       <p>
         If you have any questions or need assistance, please feel free to
-        contact our support team at 415-676-9418.
+        contact our support team at bargainsipandsave@gmail.com.
       </p>
     </div>
   );

@@ -35,7 +35,7 @@ const PrivacyPolicy = () => {
       <h2>Contact Us</h2>
       <p>
         If you have any questions or concerns about our Privacy Policy, please
-        contact us at 415-676-9418.
+        contact us at bargainsipandsave@gmail.com.
       </p>
     </div>
   );
