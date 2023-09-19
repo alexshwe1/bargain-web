@@ -12,30 +12,23 @@ const PrivacyPolicy = () => {
       </Link>
       <h1>Privacy Policy</h1>
       <p>
-        This Privacy Policy outlines how we collect, use, and protect your
-        personal information when you use our iOS application.
+        Bargain ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains our data collection and usage practices.
       </p>
-      <h2>Information We Collect</h2>
       <p>
-        We may collect information that you provide directly when you use our
-        application, such as your name, email address, and any other
-        information you choose to provide.
+        We want to inform you that the App may collect location data with your explicit consent. This location data is used solely for the purpose of displaying your location within the App and enhancing your experience. We respect your privacy and will only access your location data when you grant us permission to do so.
       </p>
-      <h2>How We Use Your Information</h2>
       <p>
-        We use your information to provide and improve our iOS application.
-        This may include personalizing your experience, providing customer
-        support, and sending you updates and notifications.
+        While we do not collect personal information for our own use, some third-party services or features integrated into the App may have their own data collection practices. We recommend reviewing their respective privacy policies for more information.
       </p>
-      <h2>Protecting Your Information</h2>
       <p>
         We take security measures to protect your personal information and
         ensure it is not accessed or disclosed without your consent.
       </p>
-      <h2>Contact Us</h2>
       <p>
-        If you have any questions or concerns about our Privacy Policy, please
-        contact us at bargainsipandsave@gmail.com.
+        If you have any questions or concerns about our privacy practices, please contact us at bargainsipandsave@gmail.com.
+      </p>
+      <p>
+        Effective Date: September 12, 2023
       </p>
     </div>
   );
