@@ -1,0 +1,8 @@
+  /* Add these styles for centering the logo */
+  .App {
+    flex-grow: 1; /* Grow the main content to take available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

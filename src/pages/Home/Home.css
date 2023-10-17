@@ -1,36 +1,18 @@
 /* App.css */
 body {
-    background-color: #000;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh; /* Use min-height to ensure the content stretches to at least the viewport height */
-  }
-  
-  .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .homepage-logo {
-    width: 400px; /* Set a fixed width for the logo */
-    /* You can adjust these values as needed */
-  }
-  
-  .content {
-    flex-grow: 1; /* Allow the main content to grow and push the footer down */
-  }
-  
-  /* Add these styles for centering the logo */
-  .App {
-    flex-grow: 1; /* Grow the main content to take available space */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-logo {
+  width: 600px; /* Set a fixed width for the logo */
+}
   
