@@ -9,13 +9,11 @@ import Support from './pages/support/Support';
 function App() {
   return (
     <div className="App">
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/support" element={<Support />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/support" element={<Support />} />
+      </Routes>
       <Footer />
     </div>
   );
