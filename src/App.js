@@ -8,16 +8,16 @@ import Support from './pages/support/Support';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/support" element={<Support />} />
         </Routes>
-        <Footer/>
-      </div>
-    </Router>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
