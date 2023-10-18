@@ -1,7 +1,7 @@
 // SupportPage.js
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link component
-import '../privacy/PrivacyPolicy.css'; // Reuse the existing CSS for styling
+import '../PrivacyPolicy/PrivacyPolicy.css'; // Reuse the existing CSS for styling
 import logo from '../../assets/bargain_logo_transparent.png'; // Import the logo image
 
 const Support = () => {

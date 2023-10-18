@@ -3,8 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './components/footer/Footer';
 import Home from './pages/Home/Home';
-import PrivacyPolicy from './pages/privacy/PrivacyPolicy';
-import Support from './pages/support/Support';
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
+import Support from './pages/Support/Support';
+import DealsPortal from './pages/DealsPortal/DealsPortal';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       <div class="container">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/dealsPortal" element={<DealsPortal />} />
         </Routes>
       </div>
       <Footer />
