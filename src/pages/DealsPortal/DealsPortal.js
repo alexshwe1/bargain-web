@@ -1,8 +1,11 @@
 import React from 'react';
+import "./DealsPortal.css";
 
 const DealsPortal = () => {
     return (
-        <div></div>
+        <div className="dealsPortal">
+            <h1>Coming Soon</h1>
+        </div>
     );
 }
 
