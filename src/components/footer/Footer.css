@@ -1,11 +1,10 @@
 .footer {
   position:fixed;
+  font-size: 40px;
   bottom: 0;
   width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 36px; /* Adjust the font size as needed */
-  font-weight: bold; /* Adjust the font weight (e.g., bold, 700, etc.) as needed */
-  background-color: black;
+  background-color: black; /* Set the line color to white */
 }
 
 .footer::before {
@@ -13,7 +12,7 @@
   display: block;
   height: 1px; /* Set the height of the white line */
   background-color: white; /* Set the line color to white */
-  margin: 1 100px; /* Adjust the margin to control distance from each side */
+  margin: 0 100px; /* Adjust the margin to control distance from each side */
 }
 
 .footer ul {
@@ -24,12 +23,12 @@
 
 .footer ul li {
   display: inline;
-  margin: 0 10px;
+  margin: 0 40px;
 }
 
 .footer a {
   color: #fff;
   text-decoration: none;
-  font-size: 16px; /* Adjust the font size for the links */
+  font-size: 20px; /* Adjust the font size for the links */
   font-weight: bold; /* Set the font weight to normal (not bold) */
 }
