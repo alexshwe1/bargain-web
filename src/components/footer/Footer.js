@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="py-5 footer">
       <ul>
         <li>
           <Link to="/privacyPolicy">Privacy Policy</Link>
