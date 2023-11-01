@@ -32,3 +32,17 @@
   font-size: 20px; /* Adjust the font size for the links */
   font-weight: bold; /* Set the font weight to normal (not bold) */
 }
+
+@media screen and (max-width: 700px) {
+  .footer::before {
+    margin: 0 20px; /* Adjust the margin to control distance from each side */
+  }
+
+  .footer ul li {
+    margin: 0 10px;
+  }
+
+  .footer a {
+    font-size: 16px;
+  }
+}
