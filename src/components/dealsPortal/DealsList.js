@@ -5,6 +5,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import db from '../../firebase';
 import DealCard from './DealCard';
 import DealsModal from './DealsModal';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const DealsList = () => {
   const { user, logout } = UserAuth();
@@ -19,6 +20,8 @@ const DealsList = () => {
 
   const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(0); // Initialize with an "All" option
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [deleteDealModal, setDeleteDealModal] = useState(null);
 
   const currentUserId = user ? user.uid : null;
 
@@ -159,6 +162,9 @@ const DealsList = () => {
               onCardClick={(selectedDeal) => {
                 setSelectedDeal(selectedDeal)
               }} 
+              onClickDelete={(selectedDeal) => {
+                setDeleteDealModal(selectedDeal)
+              }}
             />
           </li>
         ))}
@@ -174,6 +180,15 @@ const DealsList = () => {
         deal={selectedDeal || defaultDeal} // Pass a default empty deal object
         setDealWasUpdated={setDealWasUpdated}
         barId={userData?.barId}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={!!deleteDealModal}
+        closeModal={() => {
+          setDeleteDealModal(null);
+        }}
+        deal={deleteDealModal}
+        setDealWasUpdated={setDealWasUpdated}
       />
     </div>
   );

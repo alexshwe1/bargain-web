@@ -26,16 +26,16 @@ function DealCard(props) {
     function formatDateMMDD(dateString) {
         const regex = /^(\d{4})-(\d{1,2})-(\d{1,2}).*$/;
         const match = dateString.match(regex);
-      
+        
         if (match) {
-          const year = match[1];
-          const month = String(match[2]).padStart(2, '0');
-          const day = String(match[3]).padStart(2, '0');
-          return `${month}/${day}/${year}`;
+            const year = match[1];
+            const month = String(match[2]).padStart(2, '0');
+            const day = String(match[3]).padStart(2, '0');
+            return `${month}/${day}/${year}`;
         } else {
-          return 'Invalid Date';
+            return 'Invalid Date';
         }
-      }
+    }
 
     function formatTime12Hour(dateString) {
         const date = new Date(dateString);
@@ -56,7 +56,18 @@ function DealCard(props) {
 
     return (
         <div key={props.key} className="mx-auto bg-gray-300 hover:bg-gray-400 rounded-xl p-4" onClick={() => props.onCardClick(props.deal)}>
-            <h3 className="text-xl font-semibold mb-2 text-black">{props.deal.note}</h3>
+            <div className="flex items-start">
+                <h3 className="text-xl font-semibold text-black">{props.deal.note}</h3>
+                <button 
+                    className='rounded-lg px-6 py-2 text-white bg-red-400 hover:bg-red-500 ml-auto'
+                    onClick={(e) => {
+                        props.onClickDelete(props.deal);
+                        e.stopPropagation();
+                    }}
+                >
+                    Delete Deal
+                </button>
+            </div>
             <p className="mb-2 text-black">{formatTime12Hour(props.deal.startTime)} to {formatTime12Hour(props.deal.endTime)} every {getDayOfWeekString(props.deal.dayOfWeek)}</p>
             <p className="mb-2 text-black">Starts on {formatDateMMDD(props.deal.startDate)}</p>
             <p className="mb-2 text-black">Ends on {formatDateMMDD(props.deal.endDate)}</p>
