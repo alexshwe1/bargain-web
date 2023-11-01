@@ -21,7 +21,7 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/signIn" element={<Signin />} />
             <Route
-              path='/account'
+              path='/dealsList'
               element={
                 <ProtectedRoute>
                   <DealsList />

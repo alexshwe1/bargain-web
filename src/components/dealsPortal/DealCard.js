@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DealCard({ deal, onCardClick }) {
+function DealCard(props) {
 
     const getDayOfWeekString = (dayNumber) => {
         switch (dayNumber) {
@@ -55,11 +55,11 @@ function DealCard({ deal, onCardClick }) {
     }
 
     return (
-        <div className="mx-auto bg-gray-300 hover:bg-gray-400 rounded-xl p-4" onClick={() => onCardClick(deal)}>
-            <h3 className="text-xl font-semibold mb-2 text-black">{deal.note}</h3>
-            <p className="mb-2 text-black">{formatTime12Hour(deal.startTime)} to {formatTime12Hour(deal.endTime)} every {getDayOfWeekString(deal.dayOfWeek)}</p>
-            <p className="mb-2 text-black">Starts on {formatDateMMDD(deal.startDate)}</p>
-            <p className="mb-2 text-black">Ends on {formatDateMMDD(deal.endDate)}</p>
+        <div key={props.key} className="mx-auto bg-gray-300 hover:bg-gray-400 rounded-xl p-4" onClick={() => props.onCardClick(props.deal)}>
+            <h3 className="text-xl font-semibold mb-2 text-black">{props.deal.note}</h3>
+            <p className="mb-2 text-black">{formatTime12Hour(props.deal.startTime)} to {formatTime12Hour(props.deal.endTime)} every {getDayOfWeekString(props.deal.dayOfWeek)}</p>
+            <p className="mb-2 text-black">Starts on {formatDateMMDD(props.deal.startDate)}</p>
+            <p className="mb-2 text-black">Ends on {formatDateMMDD(props.deal.endDate)}</p>
         </div>
     );
 }

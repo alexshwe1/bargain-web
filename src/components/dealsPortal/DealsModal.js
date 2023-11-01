@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
-const DealsModal = ({ isOpen, closeModal, deal }) => {
+const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, deal }) => {
 
     // State to store whether the "Save" button should be disabled
     const [isSaveDisabled, setIsSaveDisabled] = useState(true);
@@ -39,13 +39,11 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
     useEffect(() => {
         // Check validation rules and update the "Save" button disabled state
         const validationResults = validateForm();
-        console.log(`form is invalid?${validationResults.isInvalid}`)
         setIsSaveDisabled(validationResults.isInvalid);
         setFormErrors(validationResults.errors);
     }, [formData]);
 
     const validateForm = () => {
-        console.log("Validating Form")
         const errors = {
             note: '',
             endDate: '',
@@ -74,14 +72,30 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
             errors.endTime = 'End time must be after the start time.';
         }
     
-        // Validate that note is less than 22 characters
-        const isNoteValid = formData.note.length <= 22;
+        // Validate that note is less than 25 characters
+        const isNoteValid = formData.note.length <= 25;
 
         if (!isNoteValid) {
-            errors.note = 'Note must be 22 characters or less.';
+            errors.note = 'Note must be 25 characters or less.';
+        }
+
+        // Validate that note is at least 5 characters
+        const isNoteLongEnough = formData.note.length >= 5;
+
+        if (!isNoteLongEnough) {
+            errors.note = 'Note must be at least 5 characters.';
+        }
+
+        // Validate that startDate and endDate are within two years of each other
+        const twoYearsLater = new Date(startDateObj);
+        twoYearsLater.setFullYear(startDateObj.getFullYear() + 2);
+        const isDateRangeValid = endDateObj <= twoYearsLater;
+
+        if (!isDateRangeValid) {
+            errors.endDate = 'Start and end dates must be within two years of each other.';
         }
     
-        const isInvalid = !(isEndDateValid && isEndTimeValid && isNoteValid);
+        const isInvalid = !(isEndDateValid && isEndTimeValid && isNoteValid && isNoteLongEnough && isDateRangeValid);
 
         return { errors, isInvalid };
       };
@@ -133,7 +147,6 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-      
         // Call a function to add emojis to the note
         const noteWithEmojis = addEmojis(formData.note);
       
@@ -142,18 +155,68 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
         const formattedEndDate = formatDateTimeString(formData.endDate, '00:00:00Z');
       
         // Format startTime and endTime to be strings in 24-hour time format "2000-01-01THH:MM:SS-06:00"
-        const formattedStartTime = formatDateTimeString('2000-01-01', formData.startTime, '-06:00');
-        const formattedEndTime = formatDateTimeString('2000-01-01', formData.endTime, '-06:00');
-      
-        // Log the formatted data and deal.id to the console
-        console.log('Formatted Data:');
-        console.log('Note with Emojis:', noteWithEmojis);
-        console.log('Formatted Start Date:', formattedStartDate);
-        console.log('Formatted End Date:', formattedEndDate);
-        console.log('Formatted Start Time:', formattedStartTime);
-        console.log('Formatted End Time:', formattedEndTime);
-        console.log('Day of Week Number:', formData.dayOfWeek);
-        //console.log('Deal ID:', deal.id);
+        const formattedStartTime = formatDateTimeString('2000-01-01', formData.startTime, ':00-06:00');
+        const formattedEndTime = formatDateTimeString('2000-01-01', formData.endTime, ':00-06:00');
+
+        if (isNewDeal) {
+            // Send a POST request to mongodb HTTP endpoint
+            const data = {
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
+                startTime: formattedStartTime,
+                endTime: formattedEndTime,
+                dayOfWeek: formData.dayOfWeek,
+                note: noteWithEmojis,
+                barId: barId,
+            };
+            fetch('https://us-east-1.aws.data.mongodb-api.com/app/bargainapi-xhtfb/endpoint/deals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((response) => {
+                if (response.ok) {
+                    console.log('Deal created successfully.');
+                    setDealWasUpdated(true);
+                } else {
+                    console.error('Error creating deal.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error creating deal:', error);
+            });
+        } else {
+            // Send a PUT request to mongodb HTTP endpoint
+            const data = {
+                dealId: deal._id,
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
+                startTime: formattedStartTime,
+                endTime: formattedEndTime,
+                dayOfWeek: formData.dayOfWeek,
+                note: noteWithEmojis,
+            };
+            fetch('https://us-east-1.aws.data.mongodb-api.com/app/bargainapi-xhtfb/endpoint/deal', {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((response) => {
+                if (response.ok) {
+                    console.log('Deal updated successfully.');
+                    setDealWasUpdated(true)
+                } else {
+                    console.error('Error updating deal.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error updating deal:', error);
+            });
+        }
       
         // Close the modal
         closeModal();
@@ -161,10 +224,69 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
       
     // Function to add emojis to the note
     function addEmojis(note) {
-        // Implement your logic to add emojis at the beginning and end of the note
-        // For example, you can return something like this:
+        // Define a mapping of keywords to emojis
+        const emojiMap = {
+          bomb: '💣',
+          wing: '🍗',
+          tap: '🚰',
+          tower: '🗼',
+          chicken: '🐔',
+          burger: '🍔',
+          'hot dog': '🌭',
+          brat: '🌭',
+          taco: '🌮',
+          burrito: '🌯',
+          pizza: '🍕',
+          fries: '🍟',
+          apps: '🍟',
+          bacon: '🥓',
+          popcorn: '🍿',
+          cookie: '🍪',
+          donut: '🍩',
+          dessert: '🍩',
+          'ice cream': '🍦',
+          strawberry: '🍓',
+          cherry: '🍒',
+          off: '❗️',
+          rail: '🚂',
+          beer: '🍺',
+          pitcher: '🍻',
+          wine: '🍷',
+          cocktail: '🍹',
+          mimosa: '🥂',
+          bottle: '🍾',
+          beatbox: '🧃',
+          'green tea': '🍵',
+          ice: '🧊',
+          snorkel: '🤿',
+          spotted: '🐄',
+          cow: '🐄',
+          pink: '💅',
+          cheese: '🧀',
+          apple: '🍏',
+          mystery: '❓',
+          mule: '🐂',
+          top: '🔝',
+          lemon: '🍋',
+          cup: '🥤',
+          kup: '🥤',
+          fire: '🔥',
+          'white claw': '🌊',
+          blood: '🩸',
+          berry: '🫐',
+          happy: '😄',
+        };
+      
+        // Iterate through the keywords and check if they exist in the note
+        for (const keyword in emojiMap) {
+          if (note.toLowerCase().includes(keyword)) {
+            return `${emojiMap[keyword]} ${note} ${emojiMap[keyword]}`;
+          }
+        }
+      
+        // If no keywords are found, return the default surrounded by emojis
         return `🌟 ${note} 🌟`;
-    }
+      }
       
     // Function to format date and time strings
     function formatDateTimeString(date, time, offset = '') {
@@ -191,6 +313,7 @@ const DealsModal = ({ isOpen, closeModal, deal }) => {
         onRequestClose={closeModal}
         className="rounded-lg overflow-hidden w-2/3 md:w-1/2 lg:w-1/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' }}}
+        ariaHideApp={false}
         >
             <div className="bg-white p-4">
                 <form onSubmit={handleSubmit}>

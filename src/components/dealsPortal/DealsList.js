@@ -10,13 +10,28 @@ const DealsList = () => {
   const { user, logout } = UserAuth();
   const navigate = useNavigate();
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState(null);
+  const [isNewDealModalOpen, setIsNewDealModalOpen] = useState(false);
 
   const [userData, setUserData] = useState(null);
   const [deals, setDeals] = useState([]); // State to store filtered deals
+  const [dealWasUpdated, setDealWasUpdated] = useState(false);
 
   const currentUserId = user ? user.uid : null;
+
+  const defaultDeal = {
+    note: "",
+    startDate: "",
+    endDate: "",
+    startTime: "",
+    endTime: "",
+    dayOfWeek: "1",
+  };
+
+  const handleNewDeal = () => {
+    setSelectedDeal(null); // Close any open deal modal
+    setIsNewDealModalOpen(true); // Open the "New Deal" modal
+  };
 
   const handleLogout = async () => {
     try {
@@ -55,10 +70,7 @@ const DealsList = () => {
   }, [currentUserId]);
 
   useEffect(() => {
-    console.log("fetchUserData useEffect called")
-
     if (userData) {
-      console.log("userdata found")
       // Fetch deals from the provided endpoint and filter by userData.barId
       fetch('https://us-east-1.aws.data.mongodb-api.com/app/bargainapi-xhtfb/endpoint/deals')
         .then((response) => response.json())
@@ -72,26 +84,47 @@ const DealsList = () => {
           console.log('Error fetching deals:', error);
         });
     }
-  }, [userData]);
+    setDealWasUpdated(false);
+  }, [userData, dealWasUpdated]);
 
   return (
     <div className='max-w-[600px] mx-auto my-16 p-4 text-white'>
       <div className="flex items-start pb-2">
         <h1 className="font-sans font-apple-system text-5xl">My Deals</h1>
-        <button onClick={handleLogout} className='rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-auto'>
-          Logout
-        </button>
+        <div className="ml-auto">
+          <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
+            New Deal
+          </button>
+          <button onClick={handleLogout} className='rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'>
+            Logout
+          </button>
+        </div>
       </div>
 
       <ul className="space-y-2">
         {deals.map((deal) => (
-          <li key={deal.id}>
-            <DealCard deal={deal} onCardClick={(selectedDeal) => setSelectedDeal(selectedDeal)} />
+          <li key={deal._id}>
+            <DealCard
+              deal={deal}
+              onCardClick={(selectedDeal) => {
+                setSelectedDeal(selectedDeal)
+              }} 
+            />
           </li>
         ))}
       </ul>
 
-      <DealsModal isOpen={!!selectedDeal} closeModal={() => setSelectedDeal(null)} deal={selectedDeal} />
+      <DealsModal 
+        isOpen={!!selectedDeal || isNewDealModalOpen} 
+        closeModal={() => {
+          setSelectedDeal(null);
+          setIsNewDealModalOpen(false);
+        }}
+        isNewDeal={isNewDealModalOpen}
+        deal={selectedDeal || defaultDeal} // Pass a default empty deal object
+        setDealWasUpdated={setDealWasUpdated}
+        barId={userData?.barId}
+      />
     </div>
   );
 };
