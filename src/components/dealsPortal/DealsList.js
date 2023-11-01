@@ -17,6 +17,9 @@ const DealsList = () => {
   const [deals, setDeals] = useState([]); // State to store filtered deals
   const [dealWasUpdated, setDealWasUpdated] = useState(false);
 
+  const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(0); // Initialize with an "All" option
+  const [searchTerm, setSearchTerm] = useState("");
+
   const currentUserId = user ? user.uid : null;
 
   const defaultDeal = {
@@ -87,8 +90,26 @@ const DealsList = () => {
     setDealWasUpdated(false);
   }, [userData, dealWasUpdated]);
 
+  const filterDeals = (dealsList) => {
+    let filteredDeals = dealsList;
+    if (selectedDayOfWeek !== 0) {
+      filteredDeals = filteredDeals.filter((deal) => {
+        return deal.dayOfWeek === selectedDayOfWeek;
+      });
+    }
+  
+    if (searchTerm) {
+      filteredDeals = filteredDeals.filter((deal) => {
+        return deal.note.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+    }
+  
+    return filteredDeals;
+  };
+
   return (
     <div className='max-w-[600px] mx-auto my-16 p-4 text-white'>
+
       <div className="flex items-start pb-2">
         <h1 className="font-sans font-apple-system text-5xl">My Deals</h1>
         <div className="ml-auto">
@@ -101,8 +122,37 @@ const DealsList = () => {
         </div>
       </div>
 
+      <div className="flex space-x-2">
+        <label htmlFor="dayOfWeekFilter">Day of the week:</label>
+        <select
+          id="dayOfWeekFilter"
+          value={selectedDayOfWeek}
+          onChange={(e) => setSelectedDayOfWeek(parseInt(e.target.value))}
+          className='text-black rounded-md px-2'
+        >
+          <option value="0">All</option>
+          <option value="1">Sunday</option>
+          <option value="2">Monday</option>
+          <option value="3">Tuesday</option>
+          <option value="4">Wednesday</option>
+          <option value="5">Thursday</option>
+          <option value="6">Friday</option>
+          <option value="7">Saturday</option>
+        </select>
+      </div>
+      <div className='flex space-x-2 py-4'>
+        <label htmlFor="searchDeals">Search by name:</label>
+        <input
+          type="text"
+          id="searchDeals"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className='text-black rounded-md'
+        />
+      </div>
+
       <ul className="space-y-2">
-        {deals.map((deal) => (
+        {filterDeals(deals).map((deal) => (
           <li key={deal._id}>
             <DealCard
               deal={deal}
