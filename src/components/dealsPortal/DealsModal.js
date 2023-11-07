@@ -386,7 +386,7 @@ const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, d
 
                     <div className="mb-4">
                         <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
-                        End Time
+                        End Time (11:59 PM maps to CLOSE in the app)
                         </label>
                         <input
                         type="time"

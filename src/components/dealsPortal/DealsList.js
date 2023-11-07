@@ -93,7 +93,7 @@ const DealsList = () => {
     setDealWasUpdated(false);
   }, [userData, dealWasUpdated]);
 
-  const filterDeals = (dealsList) => {
+  const filterDealsAndSort = (dealsList) => {
     let filteredDeals = dealsList;
     if (selectedDayOfWeek !== 0) {
       filteredDeals = filteredDeals.filter((deal) => {
@@ -106,7 +106,17 @@ const DealsList = () => {
         return deal.note.toLowerCase().includes(searchTerm.toLowerCase());
       });
     }
-  
+
+    // Sort deals first by deal.dayOfWeek and then by deal.startTime
+    filteredDeals.sort((deal1, deal2) => {
+      if (deal1.dayOfWeek !== deal2.dayOfWeek) {
+        return deal1.dayOfWeek - deal2.dayOfWeek;
+      } else {
+        // If dayOfWeek is the same, sort by startTime
+        return deal1.startTime.localeCompare(deal2.startTime);
+      }
+    });
+
     return filteredDeals;
   };
 
@@ -165,7 +175,7 @@ const DealsList = () => {
       </div>
 
       <ul className="space-y-2">
-        {filterDeals(deals).map((deal) => (
+        {filterDealsAndSort(deals).map((deal) => (
           <li key={deal._id}>
             <DealCard
               deal={deal}
