@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/bargain-web/static/css/main.e5d50231.css",
-    "main.js": "/bargain-web/static/js/main.7f5869e6.js",
-    "static/media/bargain_logo_transparent.png": "/bargain-web/static/media/bargain_logo_transparent.122a11364d5f3cec0113.png",
-    "index.html": "/bargain-web/index.html",
-    "main.e5d50231.css.map": "/bargain-web/static/css/main.e5d50231.css.map",
-    "main.7f5869e6.js.map": "/bargain-web/static/js/main.7f5869e6.js.map"
+    "main.css": "/static/css/main.e5d50231.css",
+    "main.js": "/static/js/main.ed099aab.js",
+    "static/media/bargain_logo_transparent.png": "/static/media/bargain_logo_transparent.122a11364d5f3cec0113.png",
+    "index.html": "/index.html",
+    "main.e5d50231.css.map": "/static/css/main.e5d50231.css.map",
+    "main.ed099aab.js.map": "/static/js/main.ed099aab.js.map"
   },
   "entrypoints": [
     "static/css/main.e5d50231.css",
-    "static/js/main.7f5869e6.js"
+    "static/js/main.ed099aab.js"
   ]
 }
