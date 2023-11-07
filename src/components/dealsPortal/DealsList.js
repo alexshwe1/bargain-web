@@ -113,25 +113,27 @@ const DealsList = () => {
   return (
     <div className='max-w-[600px] mx-auto my-10 p-4 text-white'>
 
-      <div className='pb-4'>
-        <div className="text-black mx-auto bg-gray-300 rounded-xl p-4">
-          <div className="flex items-top pb-4">
-          <div className="font-sans font-apple-system text-5xl">{userData?.bar}</div>
-            <div className="ml-auto">
-              <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
+      <div className='pb-2'>
+        <div className="text-black mx-auto bg-gray-300 rounded-xl px-4 py-6">
+          <div className="flex items-top">
+            <div className="font-sans font-apple-system text-5xl">{userData?.bar}</div>
+            <div className="ml-auto text-lg">
+              <button onClick={handleNewDeal} className='rounded-lg px-4 py-2 text-white bg-green-400 hover:bg-green-500'>
                 New Deal
               </button>
-              <button onClick={handleLogout} className='rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'>
+              <button onClick={handleLogout} className='rounded-lg px-4 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'>
                 Logout
               </button>
             </div>
           </div>
 
-          <div className="flex items-start pb-4">
-            <h4 className="font-sans font-apple-system text-xl">Welcome to The Bargain Deals Portal! Here, you can explore and manage all of the active deals for {userData?.bar} as well as create new deals. Deals are formatted as reccuring meaning that the start and end dates denote a time frame for each deal to repeat weekly specified by the day of the week as well as start and end times. If you have any questions, please reach out to us at bargainsipandsave@gmail.com.</h4>
+          <div className="flex items-start py-6">
+            <div className="font-sans font-apple-system text-lg">
+              Welcome to The Bargain Deals Portal! Here, you can explore and manage all of the active deals for {userData?.bar} as well as create new deals. Deals are formatted as reccuring meaning that the start and end dates denote a time frame for each deal to repeat weekly specified by the day of the week as well as start and end times. If you have any questions, please reach out to us at bargainsipandsave@gmail.com.
+            </div>
           </div>
 
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 text-lg">
             <label htmlFor="dayOfWeekFilter">Day of the week:</label>
             <select
               id="dayOfWeekFilter"
@@ -149,7 +151,7 @@ const DealsList = () => {
               <option value="7">Saturday</option>
             </select>
           </div>
-          <div className='flex space-x-2 pt-4'>
+          <div className='flex space-x-2 pt-4 text-lg'>
             <label htmlFor="searchDeals">Search by name:</label>
             <input
               type="text"
