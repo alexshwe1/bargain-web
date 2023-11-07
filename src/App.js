@@ -4,7 +4,7 @@ import './App.css';
 import Footer from './components/footer/Footer';
 import Home from './pages/Home/Home';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
-import Support from './pages/Support/Support';
+import Support from './pages/support/Support';
 import { AuthContextProvider } from './contexts/AuthContext';
 import Signin from './components/auth/SignIn';
 import ProtectedRoute from './components/auth/ProtectedRoute';
