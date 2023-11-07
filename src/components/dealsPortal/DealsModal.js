@@ -92,7 +92,7 @@ const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, d
         const containsEmoji = emojiRegex.test(formData.note);
 
         if (containsEmoji) {
-            errors.note = 'Title cannot contain emojis.';
+            errors.note = 'Title cannot contain emojis. Emojis are automatically added.';
         }
 
         // Validate that startDate and endDate are within two years of each other
