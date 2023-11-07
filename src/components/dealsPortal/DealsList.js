@@ -114,7 +114,7 @@ const DealsList = () => {
     <div className='max-w-[600px] mx-auto my-16 p-4 text-white'>
 
       <div className="flex items-start pb-2">
-        <h1 className="font-sans font-apple-system text-5xl">My Deals</h1>
+        <h1 className="font-sans font-apple-system text-5xl">{userData?.bar}</h1>
         <div className="ml-auto">
           <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
             New Deal
