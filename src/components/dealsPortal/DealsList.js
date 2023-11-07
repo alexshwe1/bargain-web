@@ -115,7 +115,7 @@ const DealsList = () => {
 
       <div className='pb-4'>
         <div className="text-black mx-auto bg-gray-300 rounded-xl p-4">
-          <div className="flex items-center pb-4">
+          <div className="flex items-top pb-4">
           <div className="font-sans font-apple-system text-5xl">{userData?.bar}</div>
             <div className="ml-auto">
               <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
