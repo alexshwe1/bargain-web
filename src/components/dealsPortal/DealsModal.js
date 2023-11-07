@@ -76,14 +76,23 @@ const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, d
         const isNoteValid = formData.note.length <= 25;
 
         if (!isNoteValid) {
-            errors.note = 'Note must be 25 characters or less.';
+            errors.note = 'Title must be 25 characters or less.';
         }
 
         // Validate that note is at least 5 characters
         const isNoteLongEnough = formData.note.length >= 5;
 
         if (!isNoteLongEnough) {
-            errors.note = 'Note must be at least 5 characters.';
+            errors.note = 'Title must be at least 5 characters.';
+        }
+
+        // Validate that note does not contain emojis
+        const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F251}\u{203C}\u{2049}\u{2122}\u{203C}\u{2049}\u{2139}\u{2328}\u{231A}\u{231B}\u{23E9}\u{23EA}\u{23EB}\u{23EC}\u{23F0}\u{23F3}\u{2614}\u{2615}\u{2648}-\u{2653}\u{267F}\u{2693}\u{26A1}\u{26AA}\u{26AB}\u{26BD}\u{26BE}\u{26C4}\u{26C5}\u{26CE}\u{26D4}\u{26EA}\u{26F2}\u{26F3}\u{26F5}\u{26FA}\u{26FD}\u{2705}\u{270A}\u{270B}\u{2728}\u{274C}\u{274E}\u{2753}\u{2757}\u{2795}\u{2796}\u{2797}\u{27B0}\u{27BF}\u{2B50}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{203C}\u{2049}\u{2122}\u{203C}\u{2049}\u{2139}\u{2328}\u{231A}\u{231B}\u{23E9}\u{23EA}\u{23EB}\u{23EC}\u{23F0}\u{23F3}\u{2614}\u{2615}\u{2648}-\u{2653}\u{267F}\u{2693}\u{26A1}\u{26AA}\u{26AB}\u{26BD}\u{26BE}\u{26C4}\u{26C5}\u{26CE}\u{26D4}\u{26EA}\u{26F2}\u{26F3}\u{26F5}\u{26FA}\u{26FD}\u{2705}\u{270A}\u{270B}\u{2728}\u{274C}\u{274E}\u{2753}\u{2757}\u{2795}\u{2796}\u{2797}\u{27B0}\u{27BF}\u{2B50}-\u{2B50}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}\u{1F004}-\u{1F0CF}\u{1F170}-\u{1F251}]/gu;
+
+        const containsEmoji = emojiRegex.test(formData.note);
+
+        if (containsEmoji) {
+            errors.note = 'Title cannot contain emojis.';
         }
 
         // Validate that startDate and endDate are within two years of each other
@@ -95,7 +104,7 @@ const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, d
             errors.endDate = 'Start and end dates must be within two years of each other.';
         }
     
-        const isInvalid = !(isEndDateValid && isEndTimeValid && isNoteValid && isNoteLongEnough && isDateRangeValid);
+        const isInvalid = !(isEndDateValid && isEndTimeValid && isNoteValid && isNoteLongEnough && isDateRangeValid && !containsEmoji);
 
         return { errors, isInvalid };
       };
