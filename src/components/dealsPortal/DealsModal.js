@@ -328,7 +328,7 @@ const DealsModal = ({ barId, isNewDeal, setDealWasUpdated, isOpen, closeModal, d
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="note" className="block text-sm font-medium text-gray-700">
-                        Title
+                        Title (Emojis are automatically added)
                         </label>
                         <input
                         type="text"
