@@ -111,47 +111,55 @@ const DealsList = () => {
   };
 
   return (
-    <div className='max-w-[600px] mx-auto my-16 p-4 text-white'>
+    <div className='max-w-[600px] mx-auto my-10 p-4 text-white'>
 
-      <div className="flex items-start pb-2">
-        <h1 className="font-sans font-apple-system text-5xl">{userData?.bar}</h1>
-        <div className="ml-auto">
-          <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
-            New Deal
-          </button>
-          <button onClick={handleLogout} className='rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'>
-            Logout
-          </button>
+      <div className='pb-4'>
+        <div className="text-black mx-auto bg-gray-300 rounded-xl p-4">
+          <div className="flex items-center pb-4">
+          <div className="font-sans font-apple-system text-5xl">{userData?.bar}</div>
+            <div className="ml-auto">
+              <button onClick={handleNewDeal} className='rounded-lg px-6 py-2 text-white bg-green-400 hover:bg-green-500'>
+                New Deal
+              </button>
+              <button onClick={handleLogout} className='rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'>
+                Logout
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-start pb-4">
+            <h4 className="font-sans font-apple-system text-xl">Welcome to The Bargain Deals Portal! Here, you can explore and manage all of the active deals for {userData?.bar} as well as create new deals. Deals are formatted as reccuring meaning that the start and end dates denote a time frame for each deal to repeat weekly specified by the day of the week as well as start and end times. If you have any questions, please reach out to us at bargainsipandsave@gmail.com.</h4>
+          </div>
+
+          <div className="flex space-x-2">
+            <label htmlFor="dayOfWeekFilter">Day of the week:</label>
+            <select
+              id="dayOfWeekFilter"
+              value={selectedDayOfWeek}
+              onChange={(e) => setSelectedDayOfWeek(parseInt(e.target.value))}
+              className='text-black rounded-md px-2'
+            >
+              <option value="0">All</option>
+              <option value="1">Sunday</option>
+              <option value="2">Monday</option>
+              <option value="3">Tuesday</option>
+              <option value="4">Wednesday</option>
+              <option value="5">Thursday</option>
+              <option value="6">Friday</option>
+              <option value="7">Saturday</option>
+            </select>
+          </div>
+          <div className='flex space-x-2 pt-4'>
+            <label htmlFor="searchDeals">Search by name:</label>
+            <input
+              type="text"
+              id="searchDeals"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='text-black rounded-md'
+            />
+          </div>
         </div>
-      </div>
-
-      <div className="flex space-x-2">
-        <label htmlFor="dayOfWeekFilter">Day of the week:</label>
-        <select
-          id="dayOfWeekFilter"
-          value={selectedDayOfWeek}
-          onChange={(e) => setSelectedDayOfWeek(parseInt(e.target.value))}
-          className='text-black rounded-md px-2'
-        >
-          <option value="0">All</option>
-          <option value="1">Sunday</option>
-          <option value="2">Monday</option>
-          <option value="3">Tuesday</option>
-          <option value="4">Wednesday</option>
-          <option value="5">Thursday</option>
-          <option value="6">Friday</option>
-          <option value="7">Saturday</option>
-        </select>
-      </div>
-      <div className='flex space-x-2 py-4'>
-        <label htmlFor="searchDeals">Search by name:</label>
-        <input
-          type="text"
-          id="searchDeals"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className='text-black rounded-md'
-        />
       </div>
 
       <ul className="space-y-2">
