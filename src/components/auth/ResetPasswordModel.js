@@ -36,6 +36,7 @@ const ResetPasswordModel = (props) => {
                 setWasPasswordResetAttempted(true);
             })
             .catch((error) => {
+                console.log(error);
                 setIsPasswordResetSuccessfully(false);
                 setWasPasswordResetAttempted(true);
             });
