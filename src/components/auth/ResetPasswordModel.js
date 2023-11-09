@@ -9,6 +9,8 @@ const ResetPasswordModel = (props) => {
     const [isPasswordResetSuccessfully, setIsPasswordResetSuccessfully] = useState(false);
     const { resetPassword } = UserAuth();
     const [wasPasswordResetAttempted, setWasPasswordResetAttempted] = useState(false);
+    const [isEmailTouched, setIsEmailTouched] = useState(false);
+
 
     useEffect(() => {
         // Check validation rules and update the "Save" button disabled state
@@ -23,9 +25,14 @@ const ResetPasswordModel = (props) => {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         if (!emailPattern.test(email)) {
             isInvalid = true;
-            errors = "Email is not valid";
+            errors = "Please enter a valid email";
         }
         return { errors, isInvalid };
+    };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        setIsEmailTouched(true); // Mark email as touched when there's input
     };
 
     const handleSubmit = async (e) => {
@@ -50,6 +57,7 @@ const ResetPasswordModel = (props) => {
                 setWasPasswordResetAttempted(false);
                 props.closeModal()
                 setEmail("")
+                setIsEmailTouched(false);
             }}
             className="rounded-lg overflow-hidden w-2/3 md:w-1/2 lg:w-1/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' }}}
@@ -68,6 +76,7 @@ const ResetPasswordModel = (props) => {
                                 setWasPasswordResetAttempted(false);
                                 props.closeModal()
                                 setEmail("")
+                                setIsEmailTouched(false);
                             }} 
                             className='flex items-center rounded-lg px-6 py-2 text-white bg-gray-400 hover:bg-gray-500 ml-2'
                         >
@@ -87,12 +96,10 @@ const ResetPasswordModel = (props) => {
                             id="email"
                             name="email"
                             value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value)
-                            }}
+                            onChange={handleEmailChange}
                             className="mt-1 p-2 block w-full border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
                             />
-                            {formErrors && <p className="text-red-500 text-sm mt-1">{formErrors}</p>}
+                            {isEmailTouched && formErrors && <p className="text-red-500 text-sm mt-1">{formErrors}</p>}
                         </div>
 
                         <button
