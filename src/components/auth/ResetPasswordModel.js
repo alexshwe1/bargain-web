@@ -32,6 +32,7 @@ const ResetPasswordModel = (props) => {
         e.preventDefault();
         resetPassword(email)
             .then(() => {
+                console.log("Success");
                 setIsPasswordResetSuccessfully(true);
                 setWasPasswordResetAttempted(true);
             })
