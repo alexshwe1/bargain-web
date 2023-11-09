@@ -33,11 +33,12 @@ const ResetPasswordModel = (props) => {
         resetPassword(email)
             .then(() => {
                 setIsPasswordResetSuccessfully(true);
+                setWasPasswordResetAttempted(true);
             })
             .catch((error) => {
                 setIsPasswordResetSuccessfully(false);
+                setWasPasswordResetAttempted(true);
             });
-        setWasPasswordResetAttempted(true);
     };
 
     return (
