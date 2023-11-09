@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../contexts/AuthContext';
+import ResetPasswordModel from './ResetPasswordModel';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const Signin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { signIn } = UserAuth();
+  const [isPasswordResetModelOpen, setIsPasswordResetModelOpen] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +21,10 @@ const Signin = () => {
       setError(e.message)
       console.log(e.message)
     }
+  };
+
+  const handleResetButton = () => {
+    setIsPasswordResetModelOpen(true); // Open the "Password Reset" modal
   };
 
   return (
@@ -35,11 +41,29 @@ const Signin = () => {
           <label className='py-2 font-medium'>Password</label>
           <input onChange={(e) => setPassword(e.target.value)} className='border p-3 text-black' type='password' />
         </div>
-        <button className='bg-gray-400 hover:bg-gray-500 w-full p-4 my-2 text-white'>
+        <button className='bg-gray-400 hover:bg-gray-500 w-full p-4 my-2 text-white font-medium'>
           Sign In
         </button>
-        {error && <h1 className='text-red-500 text-center'>Invalid Credentials</h1>}
+        {error && <div className='text-red-500 font-medium text-center'>Invalid Credentials</div>}
+        <div className='flex justify-end'>
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              handleResetButton();
+              e.stopPropagation();
+            }} 
+            className="text-white pt-4 font-medium text-right"
+          >
+            New to the deals portal?<br />Click here to reset your password
+          </button>
+        </div>
       </form>
+      <ResetPasswordModel 
+        isOpen={isPasswordResetModelOpen} 
+        closeModal={() => {
+          setIsPasswordResetModelOpen(false);
+        }}
+      />
     </div>
   );
 };
