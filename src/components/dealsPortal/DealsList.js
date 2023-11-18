@@ -79,10 +79,7 @@ const DealsList = () => {
     if (userData) {
       // Fetch deals from the provided endpoint and filter by userData.barId
       fetch('https://us-east-1.aws.data.mongodb-api.com/app/bargainapi-xhtfb/endpoint/deals')
-        .then(async (response) => {
-          const jsonString = await response.json();
-          return JSON.parse(jsonString);
-        })
+        .then((response) => response.json())
         .then((data) => {
           const filteredDeals = data.filter((deal) => {
             return deal.barId === userData.barId
